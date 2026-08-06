@@ -232,6 +232,12 @@ section {
   border: 2px solid rgb(243 239 228 / 70%);
 }
 
+.button-outline {
+  background: transparent;
+  color: var(--color-forest);
+  border: 2px solid var(--color-forest);
+}
+
 /* card grids */
 
 .entry-cards,

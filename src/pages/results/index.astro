@@ -1,126 +1,84 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const base = import.meta.env.BASE_URL;
-
-const categories = [
+const years = [
   {
-    id: "social",
-    title: "Social Runs",
-    intro: "No entry fee, no times kept — just a group run and coffee after.",
-    events: [
-      {
-        name: "Tuesday & Thursday Morning Run",
-        when: "Tue & Thu, 6:30am",
-        where: "Lennox Gardens, Flynn Drive",
-        distance: "~5–8km",
-        level: "All levels",
-      },
-      {
-        name: "Saturday Long Run",
-        when: "Sat, 7:00am",
-        where: "Rotating venues around Canberra",
-        distance: "8–20km",
-        level: "All levels, paced groups",
-      },
-    ],
+    year: 2024,
+    endpoint: "Honeysuckle Creek Tracking Station",
+    winner: "Bruce Hall",
+    summary: "First individual win at Inward Bound in 42 years.",
   },
   {
-    id: "road-races",
-    title: "Road Races",
-    intro: "Our signature race weekend, run every May since 1970.",
-    events: [
-      {
-        name: "Half Marathon",
-        when: "Sun 17 May 2026",
-        where: "Lennox Gardens → Scrivener Dam",
-        distance: "21.1km",
-        level: "16+, 3h30 cutoff",
-      },
-      {
-        name: "10km",
-        when: "Sun 17 May 2026",
-        where: "Lennox Gardens → Weston Park",
-        distance: "10km",
-        level: "Beginner-friendly",
-      },
-    ],
+    year: 2023,
+    endpoint: "Humes Crossing Campground",
+    winner: "B&G",
+    summary: "B&G took overall honours.",
   },
   {
-    id: "trail",
-    title: "Trail & Long-distance Events",
-    intro: "For runners chasing distance and terrain, not just a finish line.",
-    events: [
-      {
-        name: "Capital to Coast",
-        when: "Fri 28 – Sun 30 Aug 2026",
-        where: "Canberra to the NSW South Coast",
-        distance: "100km over 9 stages",
-        level: "Solo or relay teams of 4",
-      },
-    ],
+    year: 2022,
+    endpoint: "Course rescheduled after flooding",
+    winner: "B&G",
+    summary: "Run after flooding forced a reschedule and two years cancelled by COVID-19.",
   },
   {
-    id: "beginner",
-    title: "Beginner-friendly Events",
-    intro: "Low-pressure, non-competitive, and built for a first-timer.",
-    events: [
-      {
-        name: "10km",
-        when: "Sun 17 May 2026",
-        where: "Lennox Gardens → Weston Park",
-        distance: "10km",
-        level: "Beginner-friendly",
-      },
-      {
-        name: "Thredbo Fun & Fitness Week",
-        when: "Sat 10 – Sat 17 Jan 2026",
-        where: "Thredbo Alpine Village",
-        distance: "Fun runs from 2km",
-        level: "Families welcome, non-competitive",
-      },
-    ],
+    year: 2019,
+    endpoint: "Woolcara",
+    winner: "B&G",
+    summary: "First year the Wright and Wamburun divisions ran.",
+  },
+  {
+    year: 2018,
+    endpoint: "Not separately recorded here",
+    winner: "—",
+    summary: "Described by past organiser Jackson Bursill as “the Greatest Hits of IB.”",
   },
 ];
 ---
 
 <BaseLayout
-  title="Runs & Events — Canberra Runners"
-  description="Every Canberra Runners activity, from weekly social runs to the Half Marathon, Capital to Coast and Thredbo Fun and Fitness Week."
-  active="events"
+  title="History & Results — Inward Bound"
+  description="Inward Bound results by year, including Endpoints and overall winners from 2018 to 2024, with links to official results and IB Live."
+  active="results"
 >
   <section>
-    <h1>Runs &amp; Events</h1>
+    <h1>History &amp; Results</h1>
     <p>
-      Whatever you're looking for — a regular Tuesday run, a first race, or a weekend of trail
-      — it's grouped below by what it's for, not just when it falls on the calendar.
+      A quick look back at recent races. Each card links to the official result page for the
+      full breakdown — this page only lists what's been confirmed publicly, not every division
+      result from every year.
     </p>
   </section>
 
-  {
-    categories.map((category) => (
-      <section id={category.id}>
-        <h2>{category.title}</h2>
-        <p>{category.intro}</p>
-        <div class="category-grid">
-          {category.events.map((event) => (
-            <article class="event-card">
-              <h3>{event.name}</h3>
-              <dl>
-                <dt>When</dt>
-                <dd>{event.when}</dd>
-                <dt>Where</dt>
-                <dd>{event.where}</dd>
-                <dt>Distance</dt>
-                <dd>{event.distance}</dd>
-                <dt>Suits</dt>
-                <dd>{event.level}</dd>
-              </dl>
-              <a class="text-link" href={`${base}about/`}>Learn more →</a>
-            </article>
-          ))}
-        </div>
-      </section>
-    ))
-  }
+  <section aria-label="Results by year">
+    <div class="category-grid">
+      {
+        years.map((entry) => (
+          <article class="event-card">
+            <h3>{entry.year}</h3>
+            <dl>
+              <dt>Endpoint</dt>
+              <dd>{entry.endpoint}</dd>
+              <dt>Overall winner</dt>
+              <dd>{entry.winner}</dd>
+            </dl>
+            <p>{entry.summary}</p>
+            <a class="text-link" href="https://anuinwardbound.com/" rel="noopener">
+              Official result page →
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-label="Follow live" class="join-cta">
+    <h2>Following This Year's Race</h2>
+    <p>
+      For the current race weekend, live updates and archived race-weekend content are on IB
+      Live.
+    </p>
+    <a class="button button-primary" href="https://live.anuinwardbound.com/" rel="noopener"
+      >Open IB Live</a
+    >
+  </section>
 </BaseLayout>

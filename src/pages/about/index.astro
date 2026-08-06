@@ -1,84 +1,112 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const steps = [
+  {
+    title: "Blindfolded departure",
+    detail: "Teams are transported to an unknown location.",
+  },
+  {
+    title: "Identify the Dropsite",
+    detail: "Teams use maps, course information, and navigation skills to determine where they are.",
+  },
+  {
+    title: "Choose a route",
+    detail: "Each team plans its own route towards Endpoint.",
+  },
+  {
+    title: "Travel as a team",
+    detail: "Four runners navigate and move together through the course.",
+  },
+  {
+    title: "Reach Endpoint",
+    detail: "Teams race towards a finish location that changes each year.",
+  },
+];
+
+const pastLocations = [
+  "Orroral Valley, ACT",
+  "Maloneys Beach, NSW South Coast",
+  "Denison Campground, Kosciuszko National Park, NSW",
+];
 ---
 
 <BaseLayout
-  title="About & Join — Canberra Runners"
-  description="Canberra Runners is a local running club open to every age and level. Learn who we are, why to join, and how membership works."
+  title="About the Race — Inward Bound"
+  description="How Inward Bound works: blindfolded departure, Dropsite navigation, team travel and a secret Endpoint, plus the race's ANU history."
   active="about"
 >
   <section>
-    <h1>About &amp; Join</h1>
+    <h1>About the Race</h1>
     <p>
-      Canberra Runners has been part of Canberra's running scene since 1970. We're a local club,
-      not a race organiser that happens to also run a website — the weekly group runs are the
-      point, and the events grow out of them.
+      Inward Bound is a team navigation and endurance race, organised by ANU students and
+      volunteers. It traces back to World War II survival training for downed pilots: dropped
+      somewhere unfamiliar, with only map, compass and teammates to get out.
     </p>
   </section>
 
-  <section>
-    <h2>Our mission</h2>
+  <section aria-label="How it works">
+    <h2>How It Works</h2>
+    <hr class="route-divider" aria-hidden="true" />
+    <ol class="steps-list">
+      {
+        steps.map((step) => (
+          <li>
+            <div>
+              <strong>{step.title}</strong>
+              <p>{step.detail}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section aria-label="Format and distance">
+    <h2>Format &amp; Distance</h2>
     <p>
-      To make running in Canberra social, structured and open to anyone who wants to start —
-      whether that's a first parkrun-length run or a first half marathon.
+      Teams of four run together for the whole race. After finding the Dropsite, teams travel
+      unsupported for roughly 30–100km to reach a secret Endpoint — the distance and terrain
+      depend on the year's course and each team's own route choice.
+    </p>
+    <p>
+      Inward Bound runs in several divisions catering to different experience levels — for
+      current divisions and entry requirements, see
+      <a href={`${base}runners/`}>Runner Information</a>.
     </p>
   </section>
 
-  <section>
-    <h2>Who can join</h2>
-    <p>
-      Anyone. Members range from people running their first 5K to runners tackling Capital to
-      Coast's 100km. Group runs are split by pace, not ability level, so there's always a group
-      to run with.
-    </p>
-  </section>
-
-  <section>
-    <h2>Why join</h2>
-    <ul class="why-list">
-      <li>Member pricing on the Half Marathon, 10km and Capital to Coast</li>
-      <li>Access to the quarterly Saturday training program</li>
-      <li>A standing weekly run, every week of the year</li>
+  <section aria-label="Past locations">
+    <h2>Where It's Been</h2>
+    <p>Endpoint and course locations change every year. Recent races have used:</p>
+    <ul>
+      {pastLocations.map((place) => <li>{place}</li>)}
     </ul>
-  </section>
-
-  <section id="join">
-    <h2>Membership</h2>
-    <table class="pricing-table">
-      <thead>
-        <tr>
-          <th scope="col">Membership</th>
-          <th scope="col">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Individual</td>
-          <td>$68 / year</td>
-        </tr>
-        <tr>
-          <td>Under 18</td>
-          <td>$32 / year</td>
-        </tr>
-        <tr>
-          <td>Family</td>
-          <td>$100 / year</td>
-        </tr>
-      </tbody>
-    </table>
     <p>
-      Membership pays for itself on event entry alone — it saves $30 on Half Marathon entry by
-      itself. Join and register for events via the
-      <a href="https://canberrarunners.org.au/">official Canberra Runners site</a>.
+      See <a href={`${base}results/`}>History &amp; Results</a> for confirmed Endpoints by year.
     </p>
   </section>
 
-  <section>
-    <h2>Contact</h2>
-    <address>Lennox Gardens, Flynn Drive, Canberra ACT — where our weekly group runs start.</address>
+  <section aria-label="Safety and environment">
+    <h2>Safety &amp; Environmental Responsibility</h2>
     <p>
-      Follow along and ask questions on the club's official channels linked from
-      <a href="https://canberrarunners.org.au/">canberrarunners.org.au</a>.
+      Because teams travel unsupported through the bush, navigator qualification and safety
+      preparation are part of entry — see <a href={`${base}runners/`}>Runner Information</a> for
+      what's required before race day. Teams are expected to run with minimal environmental
+      impact and to leave the course as they found it.
     </p>
+  </section>
+
+  <section aria-label="ANU connection" class="join-cta">
+    <h2>Run by ANU, for ANU</h2>
+    <p>
+      Inward Bound has run for over 60 years, organised by ANU students and volunteers with
+      support from ANU Sport. It's a long-running piece of ANU tradition as much as it is a race.
+    </p>
+    <a class="button button-primary" href="https://anuinwardbound.com/" rel="noopener"
+      >Read the official history</a
+    >
   </section>
 </BaseLayout>
