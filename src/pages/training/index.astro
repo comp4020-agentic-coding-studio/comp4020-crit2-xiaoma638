@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const programs = [
+  {
+    title: "First 5K",
+    summary: "Never run before, or coming back after a long break? Start here.",
+    detail:
+      "A gentle run/walk progression building to a continuous 5km — the same distance as the Saturday parkruns around Canberra.",
+  },
+  {
+    title: "Improve Your Running",
+    summary: "Comfortably running 5–8km and want more structure?",
+    detail:
+      "Pace groups on the Saturday long run, plus a quarterly program covering tempo and hill sessions for runners chasing a faster 10km.",
+  },
+  {
+    title: "Half Marathon Preparation",
+    summary: "Building towards 21.1km.",
+    detail:
+      "Our quarterly Saturday program runs from late February through to the Canberra Runners Half Marathon in May, stepping distance up week by week.",
+  },
+  {
+    title: "Group Training",
+    summary: "Running 8km+, 3 times a week, and looking for a challenge?",
+    detail:
+      "A more experienced group session for runners with a solid base already, focused on pace work rather than base building.",
+  },
+];
+---
+
+<BaseLayout
+  title="Training — Canberra Runners"
+  description="Canberra Runners training programs, from a first 5K through to half marathon preparation and group sessions for experienced runners."
+  active="training"
+>
+  <section>
+    <h1>Training</h1>
+    <p>
+      Every program below is run by the same club, at the same weekly sessions — pick the one
+      that matches where you're starting from, not where you want to end up.
+    </p>
+  </section>
+
+  <section>
+    <div class="entry-cards">
+      {
+        programs.map((program) => (
+          <article class="card">
+            <h2>{program.title}</h2>
+            <p>{program.summary}</p>
+            <p>{program.detail}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="join-cta">
+    <h2>Ready to start?</h2>
+    <p>All training sessions are open to Canberra Runners members.</p>
+    <a class="button button-primary" href={`${base}about/#join`}>Join Canberra Runners</a>
+  </section>
+</BaseLayout>

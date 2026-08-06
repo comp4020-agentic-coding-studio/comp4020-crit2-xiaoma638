@@ -1,0 +1,57 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  active: "home" | "about" | "runners" | "results";
+}
+
+const { title, description, active } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const currentYear = 2026;
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={base}>Inward Bound</a>
+      <nav aria-label="Primary">
+        <a href={base} aria-current={active === "home" ? "page" : undefined}>Home</a>
+        <a href={`${base}about/`} aria-current={active === "about" ? "page" : undefined}
+          >About the Race</a
+        >
+        <a href={`${base}runners/`} aria-current={active === "runners" ? "page" : undefined}
+          >Runner Information</a
+        >
+        <a href={`${base}results/`} aria-current={active === "results" ? "page" : undefined}
+          >History &amp; Results</a
+        >
+        <a class="external-link" href="https://live.anuinwardbound.com/" rel="noopener">IB Live</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <address>ANU Inward Bound, Australian National University, Canberra ACT</address>
+      <p class="footer-links">
+        <a href="https://anuinwardbound.com/" rel="noopener">Official site</a>
+        <a href="https://www.facebook.com/Inward.Bound62" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/inwardbound/" rel="noopener">Instagram</a>
+      </p>
+      <p>
+        &copy; {currentYear} ANU Inward Bound. Unofficial redesign concept, built as a COMP4020
+        studio exercise.
+      </p>
+    </footer>
+  </body>
+</html>
