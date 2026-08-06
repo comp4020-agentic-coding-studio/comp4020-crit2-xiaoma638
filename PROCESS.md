@@ -1,85 +1,51 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
-A reading-guide to how the work came together --- a map to your process, not an
-essay about it. Markers read this file and follow its citations; they don't
-trawl the repo for evidence you didn't point at, so if a moment mattered, cite
-it.
-
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and its
-[word counts](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#word-counts)
-cover every deliverable.
-
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+An unsolicited redesign of the [ANU Inward Bound](https://anuinwardbound.com/)
+site: a four-page static prototype (Home, About the Race, Runner Information,
+History & Results) that replaces the org's fragmented, generic-looking pages
+with a single clear information architecture, an atmospheric map/navigation
+visual language, and copy grounded only in facts I could verify on the live
+site — no invented dates, fees, results, or history.
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+1. **Switching the whole target org mid-week.** I'd started the week critiquing
+   a different club (Canberra Runners) and had a working prototype for it, but
+   partway through re-running the critique steps I decided the response wasn't
+   distinctive enough to be worth finishing, and the agent's proposed next step
+   didn't fix that. Instead of re-prompting inside the old plan, I rewrote
+   `CLAUDE.md` myself to redirect the entire project to ANU Inward Bound — new
+   organisation, new critique, new page scope, new content rules — and had the
+   agent rebuild against that harness rather than patch the old one.
+   ([`8ea4ea8`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-xiaoma638/commit/8ea4ea8))
+   I knew it was the right call because the new `CLAUDE.md` could name a
+   specific, verifiable UX problem (six-plus nav items, inconsistent
+   2023–2026 date references across the org's own pages) that the old
+   direction couldn't.
 
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
+2. **Real event photography vs. an illustrated visual language.** The
+   redesign brief asked for "authentic race imagery," but Inward Bound's own
+   photography is the club's property, not mine to redeploy on a public GitHub
+   Pages site. Rather than either skip the visual upgrade or lift photos
+   anyway, I decided upfront to render the whole "map-inspired" direction —
+   contour lines, route traces, checkpoint dots — as CSS/inline-SVG motifs
+   instead of images.
+   ([`aa837a2`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-xiaoma638/commit/aa837a2))
+   I checked this held by grepping the finished pages for `<img>` tags before
+   shipping — there are none.
 
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
-
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
-
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
-
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
-
-### A worked moment, for shape
-
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
-
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
-
-## Before you ship
-
-`pnpm check:evidence` verifies your citations resolve to real commits, that the
-current reflection entry is in `reflections/`, and that your `CLAUDE.md` is
-there --- before a marker ever opens the file. It checks that your map is
-traceable, not that it is good: the marker judges whether your small,
-deliberately chosen set of moments shows real judgement and reflection. A green
-check is not a substitute for that curation.
-
-Images are deliberately not checked, because whether one renders is visible the
-moment you look. Open this file on GitHub and look at it before you ship.
+3. **A contrast bug the eye missed but the numbers didn't.** The first pass at
+   the palette used off-white button text on the endpoint-orange accent
+   colour, which read fine on screen but came out to roughly 2.6:1 contrast
+   when I actually calculated it — well under the 4.5:1 WCAG AA text minimum.
+   Rather than trust the look, I recalculated luminance for every
+   text/background pairing in `global.css`, found the same failure mode had
+   leaked into a `.join-cta` override, and fixed both plus two heading-level
+   skips (`h2` sections containing more `h2` card titles instead of `h3`) in
+   one pass.
+   ([`316c5fe`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-xiaoma638/commit/316c5fe))
+   `pnpm check` staying green before and after confirmed the fix didn't break
+   the build, and the recalculated ratio (~6:1) is what told me it was actually
+   fixed, not just moved.
