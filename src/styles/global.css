@@ -223,7 +223,7 @@ section {
 
 .button-primary {
   background: var(--color-endpoint);
-  color: var(--color-offwhite);
+  color: var(--color-near-black);
 }
 
 .button-ghost {
@@ -365,10 +365,6 @@ section {
   padding: 2rem;
   text-align: center;
   border: 1px solid rgb(20 38 28 / 10%);
-}
-
-.join-cta .button-primary {
-  color: var(--color-offwhite);
 }
 
 /* footer */
