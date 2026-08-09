@@ -70,3 +70,71 @@ describe("serves the organisation's real information", () => {
     ).toBe(true);
   });
 });
+
+describe("provides direct paths to official information", () => {
+  it("uses a labelled visual anchor on the home page", () => {
+    const home = pages.find(({ name }) => name === "index.html");
+    const image = home?.doc.querySelector("img.hero-image");
+
+    expect(image?.getAttribute("src")).toContain("images/inward-bound-navigation-hero.png");
+    expect(image?.getAttribute("alt")).toContain("Illustrative scene");
+    expect(home?.doc.querySelector(".hero-image-note")?.textContent).toContain("Illustrative");
+  });
+
+  it("provides an accessible mobile navigation control", () => {
+    for (const { name, doc } of pages) {
+      const mobileNav = doc.querySelector("details.mobile-nav");
+      expect(mobileNav, `${name}: mobile navigation should use a details control`).toBeTruthy();
+      expect(mobileNav?.querySelector("summary")?.textContent?.trim()).toBe("Menu");
+      expect(mobileNav?.querySelector("nav")).toBeTruthy();
+    }
+  });
+
+  it("sends prospective volunteers to the official volunteer information", () => {
+    const home = pages.find(({ name }) => name === "index.html");
+    expect(home?.doc.querySelector('a[href="https://anuinwardbound.com/volunteers/"]')).toBeTruthy();
+  });
+
+  it("uses the official race-weekend countdown date", () => {
+    const home = pages.find(({ name }) => name === "index.html");
+    const countdown = home?.doc.querySelector("[data-countdown-target]");
+
+    expect(countdown?.getAttribute("data-countdown-target")).toBe("2026-10-09T09:00:00Z");
+    expect(countdown?.textContent).toContain("Friday 9 October 2026");
+  });
+
+  it("uses a labelled visual for the race-weekend countdown", () => {
+    const home = pages.find(({ name }) => name === "index.html");
+    const image = home?.doc.querySelector("img.race-countdown-image");
+
+    expect(image?.getAttribute("src")).toContain("images/inward-bound-race-weekend-countdown.png");
+    expect(image?.getAttribute("alt")).toContain("Illustrative scene");
+    expect(home?.doc.querySelector(".race-countdown-image-note")?.textContent).toContain("Illustrative");
+  });
+
+  it("links runner preparation cards to their official pages", () => {
+    const runners = pages.find(({ name }) => name === "runners/index.html");
+    const links = Array.from(runners?.doc.querySelectorAll("a[href]") ?? []).map((link) =>
+      link.getAttribute("href"),
+    );
+
+    expect(links).toEqual(
+      expect.arrayContaining([
+        "https://anuinwardbound.com/rules/",
+        "https://anuinwardbound.com/runners/gear/",
+        "https://anuinwardbound.com/runners/first-aid-kit-contents/",
+      ]),
+    );
+  });
+
+  it("includes the latest published result and links each year to its source", () => {
+    const results = pages.find(({ name }) => name === "results/index.html");
+    const cards = Array.from(results?.doc.querySelectorAll(".event-card") ?? []);
+
+    expect(cards[0]?.textContent).toContain("2025");
+    for (const card of cards) {
+      expect(card.querySelector('a[href*="anuinwardbound.com/"][href$="/"]')).toBeTruthy();
+      expect(card.querySelector('a[href="https://anuinwardbound.com/"]')).toBeFalsy();
+    }
+  });
+});

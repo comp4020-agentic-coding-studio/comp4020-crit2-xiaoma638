@@ -3,41 +3,53 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const years = [
   {
+    year: 2025,
+    endpoint: "Majors Creek Recreation Reserve",
+    winner: "Griffin Hall",
+    summary: "Griffin Hall won overall for the first time.",
+    href: "https://anuinwardbound.com/2025-results/",
+  },
+  {
     year: 2024,
     endpoint: "Honeysuckle Creek Tracking Station",
     winner: "Bruce Hall",
     summary: "First individual win at Inward Bound in 42 years.",
+    href: "https://anuinwardbound.com/2024results/",
   },
   {
     year: 2023,
     endpoint: "Humes Crossing Campground",
     winner: "B&G",
     summary: "B&G took overall honours.",
+    href: "https://anuinwardbound.com/results-2023/",
   },
   {
     year: 2022,
     endpoint: "Course rescheduled after flooding",
     winner: "B&G",
     summary: "Run after flooding forced a reschedule and two years cancelled by COVID-19.",
+    href: "https://anuinwardbound.com/2022-results/",
   },
   {
     year: 2019,
     endpoint: "Woolcara",
     winner: "B&G",
     summary: "First year the Wright and Wamburun divisions ran.",
+    href: "https://anuinwardbound.com/2019-results/",
   },
   {
     year: 2018,
     endpoint: "Not separately recorded here",
     winner: "—",
     summary: "Described by past organiser Jackson Bursill as “the Greatest Hits of IB.”",
+    href: "https://anuinwardbound.com/results-2018/",
   },
 ];
 ---
 
 <BaseLayout
   title="History & Results — Inward Bound"
-  description="Inward Bound results by year, including Endpoints and overall winners from 2018 to 2024, with links to official results and IB Live."
+  description="Inward Bound results by year, including Endpoints and overall winners from 2018 to 2025, with links to official results and IB Live."
   active="results"
 >
   <section>
@@ -63,7 +75,7 @@ const years = [
               <dd>{entry.winner}</dd>
             </dl>
             <p>{entry.summary}</p>
-            <a class="text-link" href="https://anuinwardbound.com/" rel="noopener">
+            <a class="text-link" href={entry.href} rel="noopener">
               Official result page →
             </a>
           </article>

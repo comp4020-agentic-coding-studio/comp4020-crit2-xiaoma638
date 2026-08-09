@@ -1,23 +1,42 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const verifiedDate = "6 August 2026";
+const verifiedDate = "7 August 2026";
 
 const externalLinks = [
   {
     title: "Race Rules",
-    detail: "Full current-year rules, eligibility conditions and divisions.",
-    href: "https://anuinwardbound.com/",
+    detail: "The latest published race rules, eligibility conditions and divisions.",
+    href: "https://anuinwardbound.com/rules/",
   },
   {
     title: "Required Gear",
-    detail: "The mandatory gear list for runners and navigators.",
-    href: "https://anuinwardbound.com/",
+    detail: "Published gear guidance for runners and navigators.",
+    href: "https://anuinwardbound.com/runners/gear/",
   },
   {
     title: "First Aid & Safety",
-    detail: "Safety briefings and first-aid requirements for race weekend.",
-    href: "https://anuinwardbound.com/",
+    detail: "First-aid kit guidance and participation requirements.",
+    href: "https://anuinwardbound.com/runners/first-aid-kit-contents/",
+  },
+];
+
+const preparationSteps = [
+  {
+    title: "Build a team",
+    detail: "Start with four runners who can complete the course together.",
+  },
+  {
+    title: "Confirm navigation",
+    detail: "Make sure your team has a qualified navigator before committing to a division.",
+  },
+  {
+    title: "Read the rules",
+    detail: "Check the latest published rules, divisions and eligibility conditions.",
+  },
+  {
+    title: "Prepare gear",
+    detail: "Use the official gear and first-aid guidance before race-weekend scrutineering.",
   },
 ];
 ---
@@ -34,6 +53,21 @@ const externalLinks = [
       change year to year, so specifics live on the official site — this page links straight to
       them rather than restating numbers that could be out of date.
     </p>
+  </section>
+
+  <section aria-label="Preparation steps" class="preparation-flow">
+    <p class="section-label">Before you enter</p>
+    <h2>Prepare in four steps</h2>
+    <ol class="preparation-steps">
+      {
+        preparationSteps.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.detail}</p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 
   <section aria-label="Who can participate">

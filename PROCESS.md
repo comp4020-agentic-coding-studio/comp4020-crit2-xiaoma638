@@ -25,16 +25,17 @@ site — no invented dates, fees, results, or history.
    2023–2026 date references across the org's own pages) that the old
    direction couldn't.
 
-2. **Real event photography vs. an illustrated visual language.** The
+2. **Real event photography vs. a clearly labelled concept image.** The
    redesign brief asked for "authentic race imagery," but Inward Bound's own
    photography is the club's property, not mine to redeploy on a public GitHub
-   Pages site. Rather than either skip the visual upgrade or lift photos
-   anyway, I decided upfront to render the whole "map-inspired" direction —
-   contour lines, route traces, checkpoint dots — as CSS/inline-SVG motifs
-   instead of images.
+   Pages site. The first version therefore used only map-inspired CSS motifs.
    ([`aa837a2`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-xiaoma638/commit/aa837a2))
-   I checked this held by grepping the finished pages for `<img>` tags before
-   shipping — there are none.
+   After reviewing the resulting homepage against the visual reference, I
+   added generated bush-navigation images as illustrative concepts rather than
+   claiming they document Inward Bound. The visible labels and accurate alt
+   text make that distinction clear; they give the first viewport and the race
+   weekend countdown a concrete sense of terrain, teamwork and navigation
+   without reusing the club's work.
 
 3. **A contrast bug the eye missed but the numbers didn't.** The first pass at
    the palette used off-white button text on the endpoint-orange accent

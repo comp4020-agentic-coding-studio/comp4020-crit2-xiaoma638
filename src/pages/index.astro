@@ -3,33 +3,37 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const base = import.meta.env.BASE_URL;
 
-const keyFacts = [
-  { value: "30–100km", label: "unsupported, team to Endpoint" },
+const facts = [
   { value: "4", label: "runners per team" },
-  { value: "60+", label: "years of Inward Bound" },
+  { value: "30–100km", label: "to Endpoint" },
+  { value: "60+", label: "years at ANU" },
 ];
+
+const partners = ["Fortis", "Tailwind", "OneSport", "Tarkine", "Paddy Pallin", "Intersport"];
+
+const raceWeekend = {
+  startsAt: "2026-10-09T09:00:00Z",
+  dateLabel: "Friday 9 October 2026",
+  verifiedOn: "7 August 2026",
+};
 
 const pathways = [
   {
     title: "Run",
     summary: "Put a team of four together and take on the course.",
-    detail:
-      "See who can take part, what a navigator needs, and what to check before you commit a team.",
     href: `${base}runners/`,
     cta: "Runner Information",
   },
   {
     title: "Volunteer",
     summary: "Inward Bound runs on volunteers, from Dropsite to Endpoint.",
-    detail:
-      "The event only happens because people give up a weekend to run it. Get in touch to find out how to help.",
-    href: `${base}about/`,
-    cta: "About the Race",
+    href: "https://anuinwardbound.com/volunteers/",
+    cta: "Volunteer information",
+    external: true,
   },
   {
     title: "Follow",
     summary: "Track teams live as they navigate towards Endpoint.",
-    detail: "IB Live carries live updates during the race weekend itself.",
     href: "https://live.anuinwardbound.com/",
     cta: "Open IB Live",
     external: true,
@@ -42,72 +46,159 @@ const pathways = [
   description="Inward Bound is an ANU team navigation and endurance race through the Australian wilderness: dropped blindfolded, teams of four navigate to a secret Endpoint."
   active="home"
 >
-  <section class="hero motif-contours">
-    <h1>Dropped blindfolded.<br />Navigate the unknown.<br />Find Endpoint.</h1>
-    <p class="lede">
-      Inward Bound is an ANU team navigation and endurance race through the Australian
-      wilderness. Teams of four are transported to an unknown location, then find their own way
-      — unsupported — to a secret finish line.
-    </p>
-    <div class="hero-actions">
-      <a class="button button-primary" href={`${base}about/`}>How It Works</a>
-      <a class="button button-ghost" href={`${base}runners/`}>Runner Information</a>
+  <section class="hero">
+    <img
+      class="hero-image"
+      src={`${base}images/inward-bound-navigation-hero.png`}
+      alt="Illustrative scene of four runners studying a map in Australian bushland."
+    />
+    <div class="hero-content">
+      <p class="hero-eyebrow">ANU Inward Bound</p>
+      <h1>Dropped blindfolded.<br />Find Endpoint.</h1>
+      <p class="lede">
+        Teams of four navigate from an unknown Dropsite to a secret Endpoint.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={`${base}about/`}>How It Works</a>
+        <a class="button button-ghost" href={`${base}runners/`}>Runner Information</a>
+      </div>
+      <p class="hero-image-note">Illustrative concept image</p>
     </div>
   </section>
 
-  <section aria-label="Key facts">
-    <dl class="key-facts">
-      {
-        keyFacts.map((fact) => (
-          <div>
-            <dt>{fact.value}</dt>
-            <dd>{fact.label}</dd>
-          </div>
-        ))
+  <section aria-label="What Inward Bound is" class="race-intro">
+    <div class="race-intro-heading">
+      <p class="section-label">Not a trail race</p>
+      <h2>A race with no marked course</h2>
+      <a class="button button-outline intro-action" href={`${base}about/`}>See how it works →</a>
+    </div>
+    <div class="race-intro-copy">
+      <p class="race-intro-lede">
+        A weekend of navigation, endurance and team decisions in the Australian bush. Your team
+        is dropped somewhere unknown, works out where it is, then chooses its own route to
+        Endpoint.
+      </p>
+      <ul class="race-highlights">
+        <li>Four runners travel and navigate together.</li>
+        <li>Blindfolded transport to an unknown Dropsite.</li>
+        <li>Map, compass and route choice instead of a marked trail.</li>
+        <li>A secret Endpoint that changes from year to year.</li>
+      </ul>
+      <dl class="race-facts">
+        {
+          facts.map((fact) => (
+            <div>
+              <dt>{fact.value}</dt>
+              <dd>{fact.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section aria-label="Race weekend countdown" class="race-countdown">
+    <img
+      class="race-countdown-image"
+      src={`${base}images/inward-bound-race-weekend-countdown.png`}
+      alt="Illustrative scene of runners crossing an Australian bush ridge at sunrise."
+    />
+    <div class="race-countdown-content">
+      <p class="section-label">Race weekend</p>
+      <h2>Race weekend begins in</h2>
+      <div class="countdown" data-countdown-target={raceWeekend.startsAt}>
+        <p class="countdown-fallback">{raceWeekend.dateLabel}</p>
+        <dl class="countdown-grid" hidden>
+          <div><dt>Days</dt><dd data-unit="days">&ndash;</dd></div>
+          <div><dt>Hours</dt><dd data-unit="hours">&ndash;</dd></div>
+          <div><dt>Minutes</dt><dd data-unit="minutes">&ndash;</dd></div>
+          <div><dt>Seconds</dt><dd data-unit="seconds">&ndash;</dd></div>
+        </dl>
+        <p class="countdown-complete" hidden>
+          Race weekend is complete. <a href={`${base}results/`}>See results</a>{" "}or follow the{" "}
+          <a href="https://live.anuinwardbound.com/" rel="noopener">race archive</a>.
+        </p>
+      </div>
+      <p class="countdown-source">
+        Verified against the <a href="https://anuinwardbound.com/" rel="noopener">official site</a> on{" "}
+        {raceWeekend.verifiedOn}.
+      </p>
+      <p class="race-countdown-image-note">Illustrative concept image</p>
+    </div>
+    <script>
+      function initCountdowns() {
+        document.querySelectorAll<HTMLElement>("[data-countdown-target]").forEach((el) => {
+          const target = new Date(el.dataset.countdownTarget ?? "").getTime();
+          const fallback = el.querySelector<HTMLElement>(".countdown-fallback");
+          const grid = el.querySelector<HTMLElement>(".countdown-grid");
+          const complete = el.querySelector<HTMLElement>(".countdown-complete");
+          if (Number.isNaN(target) || !grid) return;
+          const countdownGrid = grid;
+
+          const units = {
+            days: countdownGrid.querySelector('[data-unit="days"]'),
+            hours: countdownGrid.querySelector('[data-unit="hours"]'),
+            minutes: countdownGrid.querySelector('[data-unit="minutes"]'),
+            seconds: countdownGrid.querySelector('[data-unit="seconds"]'),
+          };
+
+          function tick() {
+            const seconds = Math.floor((target - Date.now()) / 1000);
+            if (seconds <= 0) {
+              countdownGrid.setAttribute("hidden", "");
+              fallback?.setAttribute("hidden", "");
+              complete?.removeAttribute("hidden");
+              return;
+            }
+            if (units.days) units.days.textContent = String(Math.floor(seconds / 86400));
+            if (units.hours) units.hours.textContent = String(Math.floor((seconds % 86400) / 3600));
+            if (units.minutes)
+              units.minutes.textContent = String(Math.floor((seconds % 3600) / 60));
+            if (units.seconds) units.seconds.textContent = String(seconds % 60);
+          }
+
+          fallback?.setAttribute("hidden", "");
+          countdownGrid.removeAttribute("hidden");
+          tick();
+          window.setInterval(tick, 1000);
+        });
       }
-    </dl>
+
+      initCountdowns();
+    </script>
   </section>
 
   <section aria-label="Get involved">
     <h2>Find your way in</h2>
     <hr class="route-divider" aria-hidden="true" />
-    <div class="entry-cards">
+    <div class="pathway-list">
       {
-        pathways.map((path) => (
-          <a class="card" href={path.href} rel={path.external ? "noopener" : undefined}>
-            <h3>{path.title}</h3>
-            <p>{path.summary}</p>
-            <p>{path.detail}</p>
+        pathways.map((path, index) => (
+          <a class="pathway" href={path.href} rel={path.external ? "noopener" : undefined}>
+            <span class="pathway-index">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{path.title}</h3>
+              <p>{path.summary}</p>
+              <span class="text-link">{path.cta} →</span>
+            </div>
           </a>
         ))
       }
     </div>
   </section>
 
-  <section aria-label="Recent results">
-    <h2>History &amp; Results</h2>
-    <div class="event-card">
-      <h3>2024 — Endpoint: Honeysuckle Creek Tracking Station</h3>
-      <p>
-        Bruce Hall won overall in 2024 — the first individual win at Inward Bound in 42 years.
-      </p>
-      <a class="text-link" href={`${base}results/`}>See History &amp; Results →</a>
-    </div>
+  <section aria-label="Recent results" class="results-highlight">
+    <p class="section-label">Latest result</p>
+    <h2>2025 — Majors Creek Recreation Reserve</h2>
+    <p>Griffin Hall won overall for the first time.</p>
+    <a class="text-link" href={`${base}results/`}>See History &amp; Results →</a>
   </section>
 
-  <section aria-label="About the organisation" class="join-cta">
-    <h2>Run by ANU students, since the 1960s</h2>
-    <p>
-      Inward Bound is organised by ANU students and volunteers, supported by ANU Sport. Read more
-      on the official site, or follow along on IB Live during race weekend.
-    </p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="https://anuinwardbound.com/" rel="noopener"
-        >anuinwardbound.com</a
-      >
-      <a class="button button-outline" href="https://live.anuinwardbound.com/" rel="noopener"
-        >IB Live</a
-      >
-    </div>
+  <section aria-label="Partners" class="partners-row">
+    <p class="partners-label">Supported by</p>
+    <ul>
+      {partners.map((partner) => <li>{partner}</li>)}
+    </ul>
   </section>
+
 </BaseLayout>
