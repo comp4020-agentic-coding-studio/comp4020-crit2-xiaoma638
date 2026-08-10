@@ -42,7 +42,11 @@ jobs:
         if: ${{ !github.event.repository.is_template }}
         run: pnpm check:evidence
       - name: Check internal links
-        run: pnpm dlx linkinator ./dist --silent
+        # Skip external domains: linkinator serves ./dist on localhost, so
+        # this pattern keeps every same-site link checked while dropping
+        # third-party sites that can 429 a datacenter crawler regardless of
+        # whether the link is actually broken (e.g. Instagram).
+        run: pnpm dlx linkinator ./dist --skip "^https?://(?!localhost|127\.0\.0\.1)" --silent
       - name: Scan for committed secrets
         # Pinned, both halves: the SHA fixes the action's script, and `version`
         # fixes the scanner image, which otherwise floats on :latest. These two
